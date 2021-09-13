@@ -1,12 +1,12 @@
 type AutofarmBalance @model @auth(rules: [{allow: public}]) {
   id: ID!
-  date: String!
+  date: AWSDateTime!
   balance: Float!
 }
 
 type IronfinanceBalance @model @auth(rules: [{allow: public}]) {
   id: ID!
-  date: String!
+  date: AWSDateTime!
   balance: Float!
 }
  
