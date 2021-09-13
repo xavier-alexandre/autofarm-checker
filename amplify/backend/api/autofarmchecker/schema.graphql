@@ -1,11 +1,12 @@
-type AutofarmBalance @model {
+type AutofarmBalance @model @auth(rules: [{allow: public}]) {
   id: ID!
   date: String!
   balance: Float!
 }
 
-type IronfinanceBalance @model {
+type IronfinanceBalance @model @auth(rules: [{allow: public}]) {
   id: ID!
   date: String!
   balance: Float!
 }
+ 
