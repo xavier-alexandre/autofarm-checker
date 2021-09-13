@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-autofarmchecker-dev-220721-authRole",
+      "UnauthRoleArn": "arn:aws:iam::268761720657:role/amplify-autofarmchecker-dev-220721-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::268761720657:role/amplify-autofarmchecker-dev-220721-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
+      "UnauthRoleName": "amplify-autofarmchecker-dev-220721-unauthRole",
+      "StackName": "amplify-autofarmchecker-dev-220721",
+      "StackId": "arn:aws:cloudformation:eu-west-1:268761720657:stack/amplify-autofarmchecker-dev-220721/35c0a980-14ce-11ec-8299-0a5b287fdded",
+      "AmplifyAppId": "d13adunveju0g1"
+    },
+    "categories": {
+      "function": {
+        "autofarmcheckerlayer1921bdc4": {
+          "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
+          "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersionf2c3bed7-build.zip"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+type AutofarmBalance @model {
+  id: ID!
+  date: String!
+  balance: Float!
+}
+
+type IronfinanceBalance @model {
+  id: ID!
+  date: String!
+  balance: Float!
+}
