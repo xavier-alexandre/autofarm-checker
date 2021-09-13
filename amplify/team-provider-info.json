@@ -15,11 +15,11 @@
       "function": {
         "autofarmcheckerlayer1921bdc4": {
           "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
-          "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersionf2c3bed7-build.zip"
+          "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersion4a1f8c05-build.zip"
         },
         "saveBalances": {
           "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
-          "s3Key": "amplify-builds/saveBalances-4f5a642f70304f784e52-build.zip"
+          "s3Key": "amplify-builds/saveBalances-78733678707148506856-build.zip"
         }
       }
     }
