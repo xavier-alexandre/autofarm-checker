@@ -25,21 +25,31 @@ exports.handler = async (event) => {
     console.log("autofarmBalance", autofarmBalance);
     console.log("ironfinanceBalance", ironfinanceBalance);
 
-    const createAutofarmBalance = gql`
-      mutation createAutofarmBalance {
-        createAutofarmBalance(
-          input: { date: "${new Date().toISOString()}", balance: ${autofarmBalance} }
-        ) {
-          id
-          date
-          balance
-          createdAt
-          updatedAt
+    // const createAutofarmBalance = gql`
+    //   mutation createAutofarmBalance {
+    //     createAutofarmBalance(
+    //       input: { date: "${new Date().toISOString()}", balance: ${autofarmBalance} }
+    //     ) {
+    //       id
+    //       date
+    //       balance
+    //       createdAt
+    //       updatedAt
+    //     }
+    //   }
+    // `;
+
+    const createBalances = gql`
+        mutation createAutofarmBalance {
+            createAutofarmBalance(input: {balance: ${autofarmBalance}})
         }
-      }
+      
+        mutation createIronfinanceBalance {
+            createIronfinanceBalance(input: {balance: ${ironfinanceBalance}})
+        }      
     `;
 
-    // Save Autofarm balance
+    // Save balances
     await axios({
       url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
       method: "post",
@@ -47,35 +57,35 @@ exports.handler = async (event) => {
         "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
       },
       data: {
-        query: print(createAutofarmBalance),
+        query: print(createBalances),
       },
     });
 
-    const createIronfinanceBalance = gql`
-      mutation createIronfinanceBalance {
-        createIronfinanceBalance(
-          input: { date: "${new Date().toISOString()}", balance: ${ironfinanceBalance} }
-        ) {
-          id
-          date
-          balance
-          createdAt
-          updatedAt
-        }
-      }
-    `;
+    // const createIronfinanceBalance = gql`
+    //   mutation createIronfinanceBalance {
+    //     createIronfinanceBalance(
+    //       input: { date: "${new Date().toISOString()}", balance: ${ironfinanceBalance} }
+    //     ) {
+    //       id
+    //       date
+    //       balance
+    //       createdAt
+    //       updatedAt
+    //     }
+    //   }
+    // `;
 
-    // Save IronFinance balance
-    await axios({
-      url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
-      method: "post",
-      headers: {
-        "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
-      },
-      data: {
-        query: print(createIronfinanceBalance),
-      },
-    });
+    // // Save IronFinance balance
+    // await axios({
+    //   url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
+    //   method: "post",
+    //   headers: {
+    //     "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
+    //   },
+    //   data: {
+    //     query: print(createIronfinanceBalance),
+    //   },
+    // });
 
     return {
       statusCode: 200,

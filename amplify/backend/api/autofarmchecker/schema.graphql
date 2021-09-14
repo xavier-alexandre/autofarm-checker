@@ -1,12 +1,9 @@
-type AutofarmBalance @model @auth(rules: [{allow: public}]) {
+type AutofarmBalance @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  date: AWSDateTime!
   balance: Float!
 }
 
-type IronfinanceBalance @model @auth(rules: [{allow: public}]) {
+type IronfinanceBalance @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  date: AWSDateTime!
   balance: Float!
 }
- 
