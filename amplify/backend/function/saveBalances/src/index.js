@@ -18,6 +18,9 @@ const { print } = graphql;
 const getAutoFarmBalance = require("./getAutoFarmBalance");
 const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
 
+/**
+ * @see https://docs.amplify.aws/guides/functions/graphql-from-lambda/q/platform/ios/
+ */
 exports.handler = async (event) => {
   try {
     const autofarmBalance = await getAutoFarmBalance();
@@ -25,28 +28,19 @@ exports.handler = async (event) => {
     console.log("autofarmBalance", autofarmBalance);
     console.log("ironfinanceBalance", ironfinanceBalance);
 
-    // const createAutofarmBalance = gql`
-    //   mutation createAutofarmBalance {
-    //     createAutofarmBalance(
-    //       input: { date: "${new Date().toISOString()}", balance: ${autofarmBalance} }
-    //     ) {
-    //       id
-    //       date
-    //       balance
-    //       createdAt
-    //       updatedAt
-    //     }
-    //   }
-    // `;
-
-    const createBalances = gql`
+    const createAutofarmBalance = gql`
         mutation createAutofarmBalance {
-            createAutofarmBalance(input: {balance: ${autofarmBalance}})
+            createAutofarmBalance(input: {balance: ${autofarmBalance}}) {
+                createdAt
+            }
         }
-      
+    `;
+    const createIronfinanceBalance = gql`
         mutation createIronfinanceBalance {
-            createIronfinanceBalance(input: {balance: ${ironfinanceBalance}})
-        }      
+            createIronfinanceBalance(input: {balance: ${ironfinanceBalance}}) {
+                createdAt
+            }
+        }
     `;
 
     // Save balances
@@ -57,39 +51,28 @@ exports.handler = async (event) => {
         "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
       },
       data: {
-        query: print(createBalances),
+        query: print(createAutofarmBalance),
       },
     });
 
-    // const createIronfinanceBalance = gql`
-    //   mutation createIronfinanceBalance {
-    //     createIronfinanceBalance(
-    //       input: { date: "${new Date().toISOString()}", balance: ${ironfinanceBalance} }
-    //     ) {
-    //       id
-    //       date
-    //       balance
-    //       createdAt
-    //       updatedAt
-    //     }
-    //   }
-    // `;
+    await axios({
+      url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
+      method: "post",
+      headers: {
+        "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
+      },
+      data: {
+        query: print(createIronfinanceBalance),
+      },
+    });
 
-    // // Save IronFinance balance
-    // await axios({
-    //   url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
-    //   method: "post",
-    //   headers: {
-    //     "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
-    //   },
-    //   data: {
-    //     query: print(createIronfinanceBalance),
-    //   },
-    // });
+    const body = {
+      message: "Balances successfully saved!",
+    };
 
     return {
       statusCode: 200,
-      body: JSON.stringify("Balances successfully saved!"),
+      body: JSON.stringify(body),
       headers: {
         "Access-Control-Allow-Origin": "*",
       },

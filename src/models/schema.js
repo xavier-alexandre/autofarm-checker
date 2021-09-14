@@ -10,13 +10,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "date": {
-                    "name": "date",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "balance": {
                     "name": "balance",
                     "isArray": false,
@@ -76,13 +69,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "date": {
-                    "name": "date",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "balance": {
                     "name": "balance",
                     "isArray": false,
@@ -135,5 +121,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "b1075a835272afbbd14b1152091691d2"
+    "version": "74e607afb2d894a3cb3f8c6d5171b58a"
 };

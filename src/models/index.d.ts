@@ -14,7 +14,6 @@ type IronfinanceBalanceMetaData = {
 
 export declare class AutofarmBalance {
   readonly id: string;
-  readonly date: string;
   readonly balance: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
@@ -24,7 +23,6 @@ export declare class AutofarmBalance {
 
 export declare class IronfinanceBalance {
   readonly id: string;
-  readonly date: string;
   readonly balance: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
