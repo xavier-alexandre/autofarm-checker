@@ -7,6 +7,15 @@ const Chart = ({ data }) => {
       chart: {
         type: "area",
       },
+      plotOptions: {
+        area: {
+          marker: {
+            enabled: true,
+            symbol: "circle",
+            radius: 2,
+          },
+        },
+      },
       title: {
         text: "AutoFarm profit",
       },

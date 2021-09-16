@@ -57,12 +57,8 @@ const DataFetcher = () => {
         .map((item) => [
           new Date(item.createdAt).getTime(),
           Number.parseFloat(item.balance.toFixed(2)),
-          //   item.balance.toFixed(2),
         ])
         .sort(),
-      marker: {
-        enabled: true,
-      },
     },
     {
       name: "IronFinance borrowed amount",
@@ -71,9 +67,21 @@ const DataFetcher = () => {
         new Date(item.createdAt).getTime(),
         Number.parseFloat(item.balance.toFixed(2)),
       ]),
-      marker: {
-        enabled: true,
-      },
+    },
+    {
+      name: "Profit",
+      color: "#8bc34a",
+      data: ironfinanceBorrowBalances.map((item) => [
+        new Date(item.createdAt).getTime(),
+        Number.parseFloat(
+          (
+            autofarmBalances.find(
+              (e) =>
+                e.createdAt.substring(0, 15) === item.createdAt.substring(0, 15)
+            )?.balance - item.balance
+          ).toFixed(2)
+        ),
+      ]),
     },
   ];
 
