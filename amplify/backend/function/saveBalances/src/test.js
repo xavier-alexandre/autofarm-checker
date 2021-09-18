@@ -18,8 +18,10 @@ const farmConfigs = require("./farmConfigs.json");
 const avaxUsdcFarmBalance = getFarmBalance(farmConfigs[1]);
 
 Promise.all([
-  //   maticRate,
-  //   avaxRate,
   //   maticUsdtFarmBalance,
   avaxUsdcFarmBalance,
 ]).then(console.log);
+
+// const getAutoFarmBalance = require("./getAutoFarmBalance");
+// const balance = getAutoFarmBalance();
+// Promise.resolve(balance).then(console.log);

@@ -2,14 +2,15 @@
   {
     "RPC_URL": "https://rpc-mainnet.matic.quiknode.pro",
     "WALLET_ADDRESS": "0x43fd83b8bc132e1d4ab0bbfa17e1b069c0ef9688",
-    "AUTFOFARM": {
+    "AUTOFARM": {
       "ABI_NAME": "Polygon.AutoFarmV2_CrossChain",
-      "CONTRACT_ADDRESS": "0x864A0B7F8466247A0e44558D29cDC37D4623F213"
+      "CONTRACT_ADDRESS": "0x89d065572136814230a55ddeeddec9df34eb0b76"
     },
     "POOL": {
       "ID": 128,
       "ABI_NAME": "ApePair",
       "CONTRACT_ADDRESS": "0x65D43B64E3B31965Cd5EA367D4c2b94c03084797",
+      "TOTAL_SUPPLY_METHOD": "totalSupply",
       "UNIT": "ether"
     },
     "TOKEN_1": {
@@ -32,7 +33,7 @@
     }
   },
   {
-    "RPC_URL": "https://rpc-mainnet.matic.quiknode.pro",
+    "RPC_URL": "https://api.avax.network/ext/bc/C/rpc",
     "WALLET_ADDRESS": "0x43fd83b8bc132e1d4ab0bbfa17e1b069c0ef9688",
     "AUTOFARM": {
       "ABI_NAME": "Avalanche.AutoFarmV2_CrossChain",
@@ -40,8 +41,8 @@
     },
     "POOL": {
       "ID": 15,
-      "ABI_NAME": "MasterChefJoeV2",
-      "CONTRACT_ADDRESS": "0xd6a4F121CA35509aF06A0Be99093d08462f53052",
+      "ABI_NAME": "JoePair",
+      "CONTRACT_ADDRESS": "0xA389f9430876455C36478DeEa9769B7Ca4E3DDB1",
       "UNIT": "ether"
     },
     "TOKEN_1": {

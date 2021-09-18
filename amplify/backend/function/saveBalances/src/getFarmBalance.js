@@ -92,6 +92,7 @@ const getFarmBalance = async (farmConfig) => {
   const totalSupply = await getTotalSupply();
   const poolValue = await getPoolValue();
   return (poolValue / totalSupply) * balance;
+  //   return balance;
 };
 
 module.exports = getFarmBalance;
