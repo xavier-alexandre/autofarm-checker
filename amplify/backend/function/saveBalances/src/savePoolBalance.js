@@ -1,1 +1,0 @@
-const getAutoFarmPoolBalance = require("./getFarmBalance");
