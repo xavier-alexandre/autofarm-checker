@@ -15,6 +15,9 @@ type IronfinanceBalanceMetaData = {
 export declare class AutofarmBalance {
   readonly id: string;
   readonly balance: number;
+  readonly chain: string;
+  readonly token1: string;
+  readonly token2: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<AutofarmBalance, AutofarmBalanceMetaData>);

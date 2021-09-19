@@ -17,6 +17,27 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "chain": {
+                    "name": "chain",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "token1": {
+                    "name": "token1",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "token2": {
+                    "name": "token2",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -121,5 +142,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "74e607afb2d894a3cb3f8c6d5171b58a"
+    "version": "b6b7197c8c0de5394dcb2cb2e1d15de8"
 };
