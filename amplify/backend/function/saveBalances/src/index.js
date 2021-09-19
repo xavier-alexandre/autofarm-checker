@@ -15,26 +15,44 @@ const gql = require("graphql-tag");
 const graphql = require("graphql");
 const { print } = graphql;
 
-const getAutoFarmBalance = require("./getAutoFarmBalance");
+const getFarmBalance = require("./getAutoFarmBalance");
+const farmConfigs = require("./farmConfigs.json");
 const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
+const migrateData = require("./migrateData");
 
 /**
  * @see https://docs.amplify.aws/guides/functions/graphql-from-lambda/q/platform/ios/
  */
 exports.handler = async (event) => {
   try {
-    const autofarmBalance = await getAutoFarmBalance();
-    const ironfinanceBalance = await getIronFinanceBorrowBalance();
-    console.log("autofarmBalance", autofarmBalance);
-    console.log("ironfinanceBalance", ironfinanceBalance);
+    await migrateData();
 
-    const createAutofarmBalance = gql`
-        mutation createAutofarmBalance {
-            createAutofarmBalance(input: {balance: ${autofarmBalance}}) {
-                createdAt
+    const promises = farmConfigs.map((config) =>
+      getFarmBalance(config).then((balance) => {
+        const createAutofarmBalance = gql`
+            mutation createAutofarmBalance {
+                createAutofarmBalance(input: {balance: ${balance}, chain: ${config.CHAIN}, token1: ${config.TOKEN_1.NAME}, token2:${config.TOKEN_2.NAME}}) {
+                    createdAt
+                }
             }
-        }
-    `;
+        `;
+        return axios({
+          url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
+          method: "post",
+          headers: {
+            "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
+          },
+          data: {
+            query: print(createAutofarmBalance),
+          },
+        });
+      })
+    );
+
+    await Promise.all(promises);
+
+    // const autofarmBalance = await getAutoFarmBalance();
+    const ironfinanceBalance = await getIronFinanceBorrowBalance();
     const createIronfinanceBalance = gql`
         mutation createIronfinanceBalance {
             createIronfinanceBalance(input: {balance: ${ironfinanceBalance}}) {
@@ -42,19 +60,6 @@ exports.handler = async (event) => {
             }
         }
     `;
-
-    // Save balances
-    await axios({
-      url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
-      method: "post",
-      headers: {
-        "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
-      },
-      data: {
-        query: print(createAutofarmBalance),
-      },
-    });
-
     await axios({
       url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
       method: "post",
