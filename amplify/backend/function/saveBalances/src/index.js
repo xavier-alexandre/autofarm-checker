@@ -18,15 +18,12 @@ const { print } = graphql;
 const getFarmBalance = require("./getAutoFarmBalance");
 const farmConfigs = require("./farmConfigs.json");
 const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
-const migrateData = require("./migrateData");
 
 /**
  * @see https://docs.amplify.aws/guides/functions/graphql-from-lambda/q/platform/ios/
  */
 exports.handler = async (event) => {
   try {
-    await migrateData();
-
     const promises = farmConfigs.map((config) =>
       getFarmBalance(config).then((balance) => {
         const createAutofarmBalance = gql`

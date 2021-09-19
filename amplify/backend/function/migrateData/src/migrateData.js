@@ -14,7 +14,7 @@ const migrateData = async () => {
     }
   `;
 
-  const items = await axios({
+  const data = await axios({
     url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
     method: "post",
     headers: {
@@ -25,7 +25,9 @@ const migrateData = async () => {
     },
   });
 
-  const mutations = items
+  console.log("data", data);
+
+  const mutations = data.listAutofarmBalances.items
     .map((item) => item.id)
     .map((id) => {
       const addMissingData = gql`
