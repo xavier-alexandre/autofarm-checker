@@ -15,6 +15,8 @@ const gql = require("graphql-tag");
 const graphql = require("graphql");
 const { print } = graphql;
 
+const getFarmBalance = require("./gegetFarmBalancet");
+const farmConfigs = require("./farmConfigs.json");
 const getAutoFarmBalance = require("./getAutoFarmBalance");
 const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
 
@@ -23,6 +25,8 @@ const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
  */
 exports.handler = async (event) => {
   try {
+    const balances = farmConfigs.map((c) => getFarmBalance(c));
+
     const autofarmBalance = await getAutoFarmBalance();
     const ironfinanceBalance = await getIronFinanceBorrowBalance();
     console.log("autofarmBalance", autofarmBalance);
