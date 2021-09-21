@@ -19,13 +19,19 @@ exports.handler = async (event) => {
     await migrateData();
     const response = {
       statusCode: 200,
-      body: JSON.stringify("Hello from Lambda!"),
+      body: "Data successfully migrated 🥳",
     };
     return response;
   } catch (e) {
+    console.error("Caught error!!", e);
     const response = {
       statusCode: 500,
-      body: JSON.stringify(e),
+      headers: {
+        "Content-Type": "text/plain",
+        "x-amzn-ErrorType": 500,
+      },
+      isBase64Encoded: false,
+      body: e,
     };
     return response;
   }
