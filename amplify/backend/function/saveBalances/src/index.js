@@ -24,6 +24,7 @@ const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
  */
 exports.handler = async (event) => {
   try {
+    console.log("Farm configs", farmConfigs);
     const promises = farmConfigs.map((config) =>
       getFarmBalance(config).then((balance) => {
         const createAutofarmBalance = gql`

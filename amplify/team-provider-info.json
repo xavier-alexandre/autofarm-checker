@@ -20,11 +20,6 @@
         "saveBalances": {
           "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
           "s3Key": "amplify-builds/saveBalances-526d6e4a70515a795339-build.zip"
-        },
-        "migrateData": {
-          "stop": "stop",
-          "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
-          "s3Key": "amplify-builds/migrateData-4375335a6c33506a564b-build.zip"
         }
       }
     }
