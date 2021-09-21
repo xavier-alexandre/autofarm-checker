@@ -14,6 +14,15 @@ const migrateData = async () => {
     }
   `;
 
+  console.log(
+    "process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT",
+    process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT
+  );
+  console.log(
+    "process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT",
+    process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT
+  );
+
   const response = await axios({
     url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
     method: "post",
@@ -25,25 +34,11 @@ const migrateData = async () => {
     },
   });
 
-  const mutations = response.data.data.listAutofarmBalances.items
+  const promises = response.data.data.listAutofarmBalances.items
     .map((item) => item.id)
     .map((id) => {
-      console.log("item id", id);
-      console.log(
-        "gql string",
-        `mutation MyMutation {
-        updateAutofarmBalance(input: {id: "${id}", token1: "WMATIC", token2: "USDT", chain: "Polygon"}) {
-          id
-          token1
-          token2
-          createdAt
-          updatedAt
-          chain
-          balance
-        }
-      }
-    `
-      );
+      //   console.log("item id", id);
+
       const addMissingData = gql`
       mutation MyMutation {
         updateAutofarmBalance(input: {id: "${id}", token1: "WMATIC", token2: "USDT", chain: "Polygon"}) {
@@ -60,7 +55,7 @@ const migrateData = async () => {
 
       return axios({
         url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
-        method: "put",
+        method: "post",
         headers: {
           "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
         },
@@ -70,9 +65,10 @@ const migrateData = async () => {
       });
     });
 
-  console.log("mutations", mutations);
+  //   console.log("promises", promises);
 
-  Promise.all(mutations).then(console.log);
+  await Promise.all(promises);
+  console.log("Yup");
 };
 
 module.exports = migrateData;
