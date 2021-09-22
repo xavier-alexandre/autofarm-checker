@@ -15,8 +15,8 @@ const gql = require("graphql-tag");
 const graphql = require("graphql");
 const { print } = graphql;
 
-const getFarmBalance = require("./getAutoFarmBalance");
 const farmConfigs = require("./farmConfigs.json");
+const getFarmBalance = require("./getFarmBalance");
 const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
 
 /**
@@ -24,32 +24,34 @@ const getIronFinanceBorrowBalance = require("./getIronFinanceBorrowBalance");
  */
 exports.handler = async (event) => {
   try {
-    console.log("Farm configs", farmConfigs);
-    const promises = farmConfigs.map((config) =>
-      getFarmBalance(config).then((balance) => {
-        const createAutofarmBalance = gql`
+    const promises = farmConfigs.map(async (farmConfig) => {
+      const balance = await getFarmBalance(farmConfig);
+      console.log(
+        "For farm",
+        `${farmConfig.CHAIN}:${farmConfig.TOKEN_1}:${farmConfig.TOKEN_2}`
+      );
+      console.log("Balance is", balance);
+      const createAutofarmBalance = gql`
             mutation createAutofarmBalance {
-                createAutofarmBalance(input: {balance: ${balance}, chain: ${config.CHAIN}, token1: ${config.TOKEN_1.NAME}, token2:${config.TOKEN_2.NAME}}) {
+                createAutofarmBalance(input: {balance: ${balance}, chain: "${farmConfig.CHAIN}", token1: "${farmConfig.TOKEN_1.NAME}", token2: "${farmConfig.TOKEN_2.NAME}"}) {
                     createdAt
                 }
             }
         `;
-        return axios({
-          url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
-          method: "post",
-          headers: {
-            "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
-          },
-          data: {
-            query: print(createAutofarmBalance),
-          },
-        });
-      })
-    );
+      return axios({
+        url: process.env.API_AUTOFARMCHECKER_GRAPHQLAPIENDPOINTOUTPUT,
+        method: "post",
+        headers: {
+          "x-api-key": process.env.API_AUTOFARMCHECKER_GRAPHQLAPIKEYOUTPUT,
+        },
+        data: {
+          query: print(createAutofarmBalance),
+        },
+      });
+    });
 
     await Promise.all(promises);
 
-    // const autofarmBalance = await getAutoFarmBalance();
     const ironfinanceBalance = await getIronFinanceBorrowBalance();
     const createIronfinanceBalance = gql`
         mutation createIronfinanceBalance {

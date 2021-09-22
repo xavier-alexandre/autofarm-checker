@@ -1,5 +1,4 @@
 const config = require("./config.json");
-const convertMaticToUSD = require("./convertMaticToUSD");
 const Web3 = require("web3");
 const web3 = new Web3(config.RPC_URL);
 const WALLET_ADDRESS = config.WALLET_ADDRESS;
@@ -22,6 +21,7 @@ const getMaticBorrowBalance = async () => {
 const IRONFINANCE_USDC_BORROW_CONTRACT_ADDRESS =
   config.IRONFINANCE_USDC_BORROW_CONTRACT_ADDRESS;
 const RERC20DELEGATOR_ABI = require("./abis/RErc20Delegator.json");
+const convertToUSD = require("./convertToUSD");
 const ironfinanceUSDCBorrowContract = new web3.eth.Contract(
   RERC20DELEGATOR_ABI,
   IRONFINANCE_USDC_BORROW_CONTRACT_ADDRESS
@@ -36,7 +36,12 @@ const getUSDCBorrowBalance = async () => {
 
 const getIronFinanceBorrowBalance = async () => {
   const maticBorrowBalance = getMaticBorrowBalance();
-  const maticToUsdcRate = convertMaticToUSD();
+  const maticToUsdcRate = convertToUSD(
+    config.RPC_URL,
+    config.CHAINLINK_MATIC_USD_CONTRACT_ADDRESS,
+    "gwei",
+    10
+  );
   const usdcBorrowBalance = getUSDCBorrowBalance();
   const values = await Promise.all([
     maticBorrowBalance,
