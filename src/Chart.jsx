@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
 import Highcharts from "highcharts";
 
-const Chart = ({ data }) => {
+const Chart = ({ series }) => {
   useEffect(() => {
     Highcharts.chart("container", {
       chart: {
-        type: "area",
+        zoomType: "x",
       },
       plotOptions: {
         area: {
+          stacking: "normal",
+          marker: {
+            enabled: true,
+            symbol: "circle",
+            radius: 2,
+          },
+        },
+        line: {
           marker: {
             enabled: true,
             symbol: "circle",
@@ -27,9 +35,9 @@ const Chart = ({ data }) => {
           text: "Balance ($)",
         },
       },
-      series: data,
+      series: series,
     });
-  }, [data]);
+  }, [series]);
 
   return <div id="container" style={{ width: "80vw", height: "80vh" }}></div>;
 };

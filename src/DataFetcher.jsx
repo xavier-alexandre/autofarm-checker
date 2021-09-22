@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { DataStore } from "@aws-amplify/datastore";
+import groupBy from "lodash/groupBy";
+import map from "lodash/map";
 import sortBy from "lodash/sortBy";
 import { IronfinanceBalance } from "./models";
 import { AutofarmBalance } from "./models";
 import Chart from "./Chart";
+import chainToColor from "./chainToColor.json";
 
 const DataFetcher = () => {
   const [autofarmBalances, setAutofarmBalances] = useState([]);
@@ -49,43 +52,59 @@ const DataFetcher = () => {
     return () => (isSubscribed = false);
   }, []);
 
-  const chartData = [
-    {
-      name: "AutoFarm balance",
-      color: "#4958c4",
-      data: autofarmBalances
-        .map((item) => [
-          new Date(item.createdAt).getTime(),
-          Number.parseFloat(item.balance.toFixed(2)),
-        ])
-        .sort(),
-    },
-    {
-      name: "IronFinance borrowed amount",
-      color: "rgb(239, 131, 39)",
-      data: ironfinanceBorrowBalances.map((item) => [
-        new Date(item.createdAt).getTime(),
+  const groupedByFarm = groupBy(
+    autofarmBalances,
+    (balance) => `${balance.chain}:${balance.token1}:${balance.token2}`
+  );
+  window.groupedByFarm = groupedByFarm;
+  const farmsSeries = map(groupedByFarm, (balances, index) => ({
+    type: "area",
+    name: `${balances[0].chain}, ${balances[0].token1}/${balances[0].token2}`,
+    color: chainToColor[balances[0].chain],
+    data: balances
+      .map((item) => [
+        new Date(item.createdAt.substring(0, 19)).getTime(),
         Number.parseFloat(item.balance.toFixed(2)),
-      ]),
-    },
-    {
-      name: "Profit",
-      color: "#8bc34a",
-      data: ironfinanceBorrowBalances.map((item) => [
-        new Date(item.createdAt).getTime(),
-        Number.parseFloat(
-          (
-            autofarmBalances.find(
-              (e) =>
-                e.createdAt.substring(0, 15) === item.createdAt.substring(0, 15)
-            )?.balance - item.balance
-          ).toFixed(2)
-        ),
-      ]),
-    },
-  ];
+      ])
+      .sort(),
+  }));
 
-  return <Chart data={chartData} />;
+  const ironfinanceBorrowSerie = {
+    type: "line",
+    name: "IronFinance borrow",
+    color: "rgb(239, 131, 39)",
+    data: ironfinanceBorrowBalances.map((item) => [
+      new Date(item.createdAt.substring(0, 19)).getTime(),
+      Number.parseFloat(item.balance.toFixed(2)),
+    ]),
+  };
+
+  const profitSerie = {
+    name: "Profit",
+    type: "line",
+    color: "#8bc34a",
+    data: ironfinanceBorrowBalances.map((item) => [
+      new Date(item.createdAt.substring(0, 19)).getTime(),
+      Number.parseFloat(
+        (
+          Object.values(groupedByFarm).reduce(
+            (prev, current) =>
+              prev +
+              current.find(
+                (e) =>
+                  e.createdAt.substring(0, 19) ===
+                  item.createdAt.substring(0, 19)
+              )?.balance,
+            0
+          ) - item.balance
+        ).toFixed(2)
+      ),
+    ]),
+  };
+
+  const series = [...farmsSeries, ironfinanceBorrowSerie, profitSerie];
+
+  return <Chart series={series} />;
 };
 
 export default DataFetcher;
