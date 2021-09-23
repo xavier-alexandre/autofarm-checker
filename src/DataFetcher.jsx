@@ -63,7 +63,7 @@ const DataFetcher = () => {
     color: chainToColor[balances[0].chain],
     data: balances
       .map((item) => [
-        new Date(item.createdAt.substring(0, 19)).getTime(),
+        new Date(item.createdAt.substring(0, 16)).getTime(),
         Number.parseFloat(item.balance.toFixed(2)),
       ])
       .sort(),
@@ -74,7 +74,7 @@ const DataFetcher = () => {
     name: "IronFinance borrow",
     color: "rgb(239, 131, 39)",
     data: ironfinanceBorrowBalances.map((item) => [
-      new Date(item.createdAt.substring(0, 19)).getTime(),
+      new Date(item.createdAt.substring(0, 16)).getTime(),
       Number.parseFloat(item.balance.toFixed(2)),
     ]),
   };
@@ -84,7 +84,7 @@ const DataFetcher = () => {
     type: "line",
     color: "#8bc34a",
     data: ironfinanceBorrowBalances.map((item) => [
-      new Date(item.createdAt.substring(0, 19)).getTime(),
+      new Date(item.createdAt.substring(0, 16)).getTime(),
       Number.parseFloat(
         (
           Object.values(groupedByFarm).reduce(
@@ -92,8 +92,8 @@ const DataFetcher = () => {
               prev +
               current.find(
                 (e) =>
-                  e.createdAt.substring(0, 19) ===
-                  item.createdAt.substring(0, 19)
+                  e.createdAt.substring(0, 16) ===
+                  item.createdAt.substring(0, 16)
               )?.balance,
             0
           ) - item.balance
