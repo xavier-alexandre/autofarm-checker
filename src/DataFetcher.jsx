@@ -56,7 +56,6 @@ const DataFetcher = () => {
     autofarmBalances,
     (balance) => `${balance.chain}:${balance.token1}:${balance.token2}`
   );
-  window.groupedByFarm = groupedByFarm;
   const farmsSeries = map(groupedByFarm, (balances, index) => ({
     type: "area",
     name: `${balances[0].chain}, ${balances[0].token1}/${balances[0].token2}`,
