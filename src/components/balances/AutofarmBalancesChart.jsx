@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import Highcharts from 'highcharts';
 import './balances.styles.css';

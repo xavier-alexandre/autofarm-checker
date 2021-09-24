@@ -1,9 +1,8 @@
 {
-  "name": "@minimal/material-kit-react",
-  "author": "minimals.cc",
-  "licence": "MIT",
-  "version": "1.2.0",
-  "private": false,
+  "name": "autofarm-checker",
+  "author": "somedude",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
