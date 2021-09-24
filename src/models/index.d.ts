@@ -20,6 +20,7 @@ export declare class Payments {
   readonly id: string;
   readonly amount: number;
   readonly platform: string;
+  readonly date: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Payments, PaymentsMetaData>);
