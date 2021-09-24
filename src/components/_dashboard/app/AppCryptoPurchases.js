@@ -60,7 +60,7 @@ const AppCryptoPurchases = () => {
         <Icon icon={creditCard} width={24} height={24} />
       </IconWrapperStyle>
       <Typography variant="h3">
-        {fShortenNumber(purchases.reduce((prev, curr) => prev + curr, 0))}
+        {fShortenNumber(purchases.reduce((prev, curr) => prev + curr.amount, 0))}€
       </Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Crypto purchases
