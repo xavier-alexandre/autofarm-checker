@@ -1,3 +1,9 @@
+type Payments @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  amount: Float!
+  platform: String!
+}
+
 type AutofarmBalance @model @auth(rules: [{allow: public}]) {
   id: ID!
   balance: Float!

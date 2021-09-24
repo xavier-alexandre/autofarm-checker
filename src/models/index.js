@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { AutofarmBalance, IronfinanceBalance } = initSchema(schema);
+const { Payments, AutofarmBalance, IronfinanceBalance } = initSchema(schema);
 
 export {
+  Payments,
   AutofarmBalance,
   IronfinanceBalance
 };
