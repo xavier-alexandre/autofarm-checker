@@ -15,7 +15,7 @@
       "function": {
         "autofarmcheckerlayer1921bdc4": {
           "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
-          "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersionc6bac7a2-build.zip"
+          "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersion7dd8a1e4-build.zip"
         },
         "saveBalances": {
           "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",

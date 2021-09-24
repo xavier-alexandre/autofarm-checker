@@ -1,8 +1,8 @@
-type Paymen @model @auth(rules: [{allow: public}]) {
+type Purchases @model @auth(rules: [{allow: public}]) {
   id: ID!
   platform: String
-  amount: Float
-  date: AWSDateTime
+  amount: String
+  date: String
 }
 
 type AutofarmBalance @model @auth(rules: [{allow: public}]) {

@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Paymen": {
-            "name": "Paymen",
+        "Purchases": {
+            "name": "Purchases",
             "fields": {
                 "id": {
                     "name": "id",
@@ -20,14 +20,14 @@ export const schema = {
                 "amount": {
                     "name": "amount",
                     "isArray": false,
-                    "type": "Float",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
                 "date": {
                     "name": "date",
                     "isArray": false,
-                    "type": "AWSDateTime",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -49,7 +49,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Paymen",
+            "pluralName": "Purchases",
             "attributes": [
                 {
                     "type": "model",
@@ -215,5 +215,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "afc1816ccb47959678d5472ce111edd7"
+    "version": "309929c1826803d365ef14982d7b175f"
 };

@@ -18,16 +18,16 @@
       "service": "LambdaLayer",
       "build": true,
       "output": {
-        "Arn": "arn:aws:lambda:eu-west-1:268761720657:layer:autofarmcheckerlayer1921bdc4-dev:12"
+        "Arn": "arn:aws:lambda:eu-west-1:268761720657:layer:autofarmcheckerlayer1921bdc4-dev:13"
       },
-      "lastPushTimeStamp": "2021-09-24T20:54:23.281Z",
+      "lastPushTimeStamp": "2021-09-24T21:25:18.094Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-autofarmchecker-dev-220721-deployment/amplify-cfn-templates/function/autofarmcheckerlayer1921bdc4-awscloudformation-template.json",
         "logicalId": "functionautofarmcheckerlayer1921bdc4"
       },
       "s3Bucket": {
         "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
-        "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersionc6bac7a2-build.zip"
+        "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersion7dd8a1e4-build.zip"
       }
     },
     "saveBalances": {
@@ -59,7 +59,7 @@
         "Name": "saveBalances-dev",
         "LambdaExecutionRole": "autofarmcheckerLambdaRole757b8638-dev"
       },
-      "lastPushTimeStamp": "2021-09-24T20:54:23.283Z",
+      "lastPushTimeStamp": "2021-09-24T21:25:18.097Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-autofarmchecker-dev-220721-deployment/amplify-cfn-templates/function/saveBalances-cloudformation-template.json",
         "logicalId": "functionsaveBalances"
@@ -93,12 +93,12 @@
         "GraphQLAPIEndpointOutput": "https://ur54nghbqjcqlnky7wufcv5ope.appsync-api.eu-west-1.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-bz45sp5dunh5nm6m2dkhuyax5q"
       },
-      "lastPushTimeStamp": "2021-09-24T20:54:23.285Z",
+      "lastPushTimeStamp": "2021-09-24T21:25:18.098Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-autofarmchecker-dev-220721-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiautofarmchecker"
       },
-      "lastPushDirHash": "jsi13g9Utm7zOefWNjwt8qdID5A="
+      "lastPushDirHash": "BtRYYzE+OZP8Ifyj5+pKOWj7Xjg="
     }
   }
 }

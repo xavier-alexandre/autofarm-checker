@@ -86,7 +86,7 @@
         }
     },
     "Resources": {
-        "PaymenTable": {
+        "PurchasesTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
                 "TableName": {
@@ -96,7 +96,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Paymen",
+                                    "Purchases",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
                                     },
@@ -110,7 +110,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Paymen",
+                                    "Purchases",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
                                     }
@@ -186,7 +186,7 @@
             },
             "DeletionPolicy": "Delete"
         },
-        "PaymenIAMRole": {
+        "PurchasesIAMRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName": {
@@ -196,7 +196,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Paymenf1a37f",
+                                    "Purchases9df46d",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
@@ -211,7 +211,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Paymen543dc8",
+                                    "Purchases41611b",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
@@ -263,7 +263,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Paymen",
+                                                                        "Purchases",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         },
@@ -277,7 +277,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Paymen",
+                                                                        "Purchases",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         }
@@ -300,7 +300,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Paymen",
+                                                                        "Purchases",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         },
@@ -314,7 +314,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Paymen",
+                                                                        "Purchases",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         }
@@ -408,17 +408,17 @@
                 ]
             }
         },
-        "PaymenDataSource": {
+        "PurchasesDataSource": {
             "Type": "AWS::AppSync::DataSource",
             "Properties": {
                 "ApiId": {
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
-                "Name": "PaymenTable",
+                "Name": "PurchasesTable",
                 "Type": "AMAZON_DYNAMODB",
                 "ServiceRoleArn": {
                     "Fn::GetAtt": [
-                        "PaymenIAMRole",
+                        "PurchasesIAMRole",
                         "Arn"
                     ]
                 },
@@ -433,7 +433,7 @@
                                 "Fn::Join": [
                                     "-",
                                     [
-                                        "Paymen",
+                                        "Purchases",
                                         {
                                             "Ref": "GetAttGraphQLAPIApiId"
                                         },
@@ -447,7 +447,7 @@
                                 "Fn::Join": [
                                     "-",
                                     [
-                                        "Paymen",
+                                        "Purchases",
                                         {
                                             "Ref": "GetAttGraphQLAPIApiId"
                                         }
@@ -494,10 +494,10 @@
                 }
             },
             "DependsOn": [
-                "PaymenIAMRole"
+                "PurchasesIAMRole"
             ]
         },
-        "SyncPaymenResolver": {
+        "SyncPurchasesResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -505,11 +505,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PaymenDataSource",
+                        "PurchasesDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "syncPaymen",
+                "FieldName": "syncPurchases",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -526,7 +526,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "syncPaymen",
+                                        "syncPurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -550,7 +550,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "syncPaymen",
+                                        "syncPurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -561,7 +561,7 @@
                 }
             }
         },
-        "GetPaymenResolver": {
+        "GetPurchasesResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -569,11 +569,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PaymenDataSource",
+                        "PurchasesDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "getPaymen",
+                "FieldName": "getPurchases",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -590,7 +590,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "getPaymen",
+                                        "getPurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -614,7 +614,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "getPaymen",
+                                        "getPurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -625,7 +625,7 @@
                 }
             }
         },
-        "ListPaymenResolver": {
+        "ListPurchasesResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -633,11 +633,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PaymenDataSource",
+                        "PurchasesDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "listPaymen",
+                "FieldName": "listPurchases",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -654,7 +654,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "listPaymen",
+                                        "listPurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -678,7 +678,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "listPaymen",
+                                        "listPurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -689,7 +689,7 @@
                 }
             }
         },
-        "CreatePaymenResolver": {
+        "CreatePurchasesResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -697,11 +697,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PaymenDataSource",
+                        "PurchasesDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "createPaymen",
+                "FieldName": "createPurchases",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -722,7 +722,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "createPaymen",
+                                        "createPurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -746,7 +746,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "createPaymen",
+                                        "createPurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -757,7 +757,7 @@
                 }
             }
         },
-        "UpdatePaymenResolver": {
+        "UpdatePurchasesResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -765,11 +765,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PaymenDataSource",
+                        "PurchasesDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "updatePaymen",
+                "FieldName": "updatePurchases",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -790,7 +790,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "updatePaymen",
+                                        "updatePurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -814,7 +814,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "updatePaymen",
+                                        "updatePurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -825,7 +825,7 @@
                 }
             }
         },
-        "DeletePaymenResolver": {
+        "DeletePurchasesResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -833,11 +833,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PaymenDataSource",
+                        "PurchasesDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "deletePaymen",
+                "FieldName": "deletePurchases",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -858,7 +858,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "deletePaymen",
+                                        "deletePurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -882,7 +882,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "deletePaymen",
+                                        "deletePurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -895,11 +895,11 @@
         }
     },
     "Outputs": {
-        "GetAttPaymenTableStreamArn": {
+        "GetAttPurchasesTableStreamArn": {
             "Description": "Your DynamoDB table StreamArn.",
             "Value": {
                 "Fn::GetAtt": [
-                    "PaymenTable",
+                    "PurchasesTable",
                     "StreamArn"
                 ]
             },
@@ -912,18 +912,18 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "PaymenTable",
+                            "PurchasesTable",
                             "StreamArn"
                         ]
                     ]
                 }
             }
         },
-        "GetAttPaymenDataSourceName": {
+        "GetAttPurchasesDataSourceName": {
             "Description": "Your model DataSource name.",
             "Value": {
                 "Fn::GetAtt": [
-                    "PaymenDataSource",
+                    "PurchasesDataSource",
                     "Name"
                 ]
             },
@@ -936,17 +936,17 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "PaymenDataSource",
+                            "PurchasesDataSource",
                             "Name"
                         ]
                     ]
                 }
             }
         },
-        "GetAttPaymenTableName": {
+        "GetAttPurchasesTableName": {
             "Description": "Your DynamoDB table name.",
             "Value": {
-                "Ref": "PaymenTable"
+                "Ref": "PurchasesTable"
             },
             "Export": {
                 "Name": {
@@ -957,7 +957,7 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "PaymenTable",
+                            "PurchasesTable",
                             "Name"
                         ]
                     ]
