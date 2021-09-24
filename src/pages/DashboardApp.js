@@ -15,7 +15,8 @@ import {
   AppWebsiteVisits,
   AppTrafficBySite,
   AppCurrentSubject,
-  AppConversionRates
+  AppConversionRates,
+  AppCryptoPurchases
 } from '../components/_dashboard/app';
 
 // ----------------------------------------------------------------------
@@ -35,7 +36,7 @@ export default function DashboardApp() {
             <AppNewUsers />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <AppItemOrders />
+            <AppCryptoPurchases />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppBugReports />
