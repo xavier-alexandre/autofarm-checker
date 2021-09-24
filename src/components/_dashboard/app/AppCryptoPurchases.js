@@ -4,7 +4,7 @@ import creditCard from '@iconify/icons-noto/credit-card';
 import { DataStore } from '@aws-amplify/datastore';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
-import { Purchase } from '../../../models';
+import { CryptoPurchase } from '../../../models';
 import { fShortenNumber } from '../../../utils/formatNumber';
 
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -38,7 +38,7 @@ const AppCryptoPurchases = () => {
   useEffect(() => {
     let isSubscribed = true;
     const fetchPurchases = async () => {
-      const data = await DataStore.query(Purchase);
+      const data = await DataStore.query(CryptoPurchase);
       data.sort((a, b) => a.createdAt < b.createdAt);
       // set state with the result if `isSubscribed` is true
       if (isSubscribed) {

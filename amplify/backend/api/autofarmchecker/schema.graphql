@@ -1,8 +1,8 @@
-type Purchases @model @auth(rules: [{allow: public}]) {
+type CryptoPurchase @model @auth(rules: [{allow: public}]) {
   id: ID!
   platform: String
-  amount: String
-  date: String
+  amount: Float
+  date: AWSDateTime
 }
 
 type AutofarmBalance @model @auth(rules: [{allow: public}]) {

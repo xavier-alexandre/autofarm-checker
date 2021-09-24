@@ -86,7 +86,7 @@
         }
     },
     "Resources": {
-        "PurchasesTable": {
+        "CryptoPurchaseTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
                 "TableName": {
@@ -96,7 +96,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Purchases",
+                                    "CryptoPurchase",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
                                     },
@@ -110,7 +110,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Purchases",
+                                    "CryptoPurchase",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
                                     }
@@ -186,7 +186,7 @@
             },
             "DeletionPolicy": "Delete"
         },
-        "PurchasesIAMRole": {
+        "CryptoPurchaseIAMRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName": {
@@ -196,7 +196,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Purchases9df46d",
+                                    "CryptoPurchase49aca1",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
@@ -211,7 +211,7 @@
                             "Fn::Join": [
                                 "-",
                                 [
-                                    "Purchases41611b",
+                                    "CryptoPurchase88e219",
                                     "role",
                                     {
                                         "Ref": "GetAttGraphQLAPIApiId"
@@ -263,7 +263,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Purchases",
+                                                                        "CryptoPurchase",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         },
@@ -277,7 +277,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Purchases",
+                                                                        "CryptoPurchase",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         }
@@ -300,7 +300,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Purchases",
+                                                                        "CryptoPurchase",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         },
@@ -314,7 +314,7 @@
                                                                 "Fn::Join": [
                                                                     "-",
                                                                     [
-                                                                        "Purchases",
+                                                                        "CryptoPurchase",
                                                                         {
                                                                             "Ref": "GetAttGraphQLAPIApiId"
                                                                         }
@@ -408,17 +408,17 @@
                 ]
             }
         },
-        "PurchasesDataSource": {
+        "CryptoPurchaseDataSource": {
             "Type": "AWS::AppSync::DataSource",
             "Properties": {
                 "ApiId": {
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
-                "Name": "PurchasesTable",
+                "Name": "CryptoPurchaseTable",
                 "Type": "AMAZON_DYNAMODB",
                 "ServiceRoleArn": {
                     "Fn::GetAtt": [
-                        "PurchasesIAMRole",
+                        "CryptoPurchaseIAMRole",
                         "Arn"
                     ]
                 },
@@ -433,7 +433,7 @@
                                 "Fn::Join": [
                                     "-",
                                     [
-                                        "Purchases",
+                                        "CryptoPurchase",
                                         {
                                             "Ref": "GetAttGraphQLAPIApiId"
                                         },
@@ -447,7 +447,7 @@
                                 "Fn::Join": [
                                     "-",
                                     [
-                                        "Purchases",
+                                        "CryptoPurchase",
                                         {
                                             "Ref": "GetAttGraphQLAPIApiId"
                                         }
@@ -494,10 +494,10 @@
                 }
             },
             "DependsOn": [
-                "PurchasesIAMRole"
+                "CryptoPurchaseIAMRole"
             ]
         },
-        "SyncPurchasesResolver": {
+        "SyncCryptoPurchaseResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -505,11 +505,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PurchasesDataSource",
+                        "CryptoPurchaseDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "syncPurchases",
+                "FieldName": "syncCryptoPurchases",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -526,7 +526,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "syncPurchases",
+                                        "syncCryptoPurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -550,7 +550,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "syncPurchases",
+                                        "syncCryptoPurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -561,7 +561,7 @@
                 }
             }
         },
-        "GetPurchasesResolver": {
+        "GetCryptoPurchaseResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -569,11 +569,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PurchasesDataSource",
+                        "CryptoPurchaseDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "getPurchases",
+                "FieldName": "getCryptoPurchase",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -590,7 +590,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "getPurchases",
+                                        "getCryptoPurchase",
                                         "req",
                                         "vtl"
                                     ]
@@ -614,7 +614,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "getPurchases",
+                                        "getCryptoPurchase",
                                         "res",
                                         "vtl"
                                     ]
@@ -625,7 +625,7 @@
                 }
             }
         },
-        "ListPurchasesResolver": {
+        "ListCryptoPurchaseResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -633,11 +633,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PurchasesDataSource",
+                        "CryptoPurchaseDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "listPurchases",
+                "FieldName": "listCryptoPurchases",
                 "TypeName": "Query",
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
@@ -654,7 +654,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "listPurchases",
+                                        "listCryptoPurchases",
                                         "req",
                                         "vtl"
                                     ]
@@ -678,7 +678,7 @@
                                     ".",
                                     [
                                         "Query",
-                                        "listPurchases",
+                                        "listCryptoPurchases",
                                         "res",
                                         "vtl"
                                     ]
@@ -689,7 +689,7 @@
                 }
             }
         },
-        "CreatePurchasesResolver": {
+        "CreateCryptoPurchaseResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -697,11 +697,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PurchasesDataSource",
+                        "CryptoPurchaseDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "createPurchases",
+                "FieldName": "createCryptoPurchase",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -722,7 +722,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "createPurchases",
+                                        "createCryptoPurchase",
                                         "req",
                                         "vtl"
                                     ]
@@ -746,7 +746,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "createPurchases",
+                                        "createCryptoPurchase",
                                         "res",
                                         "vtl"
                                     ]
@@ -757,7 +757,7 @@
                 }
             }
         },
-        "UpdatePurchasesResolver": {
+        "UpdateCryptoPurchaseResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -765,11 +765,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PurchasesDataSource",
+                        "CryptoPurchaseDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "updatePurchases",
+                "FieldName": "updateCryptoPurchase",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -790,7 +790,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "updatePurchases",
+                                        "updateCryptoPurchase",
                                         "req",
                                         "vtl"
                                     ]
@@ -814,7 +814,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "updatePurchases",
+                                        "updateCryptoPurchase",
                                         "res",
                                         "vtl"
                                     ]
@@ -825,7 +825,7 @@
                 }
             }
         },
-        "DeletePurchasesResolver": {
+        "DeleteCryptoPurchaseResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
                 "ApiId": {
@@ -833,11 +833,11 @@
                 },
                 "DataSourceName": {
                     "Fn::GetAtt": [
-                        "PurchasesDataSource",
+                        "CryptoPurchaseDataSource",
                         "Name"
                     ]
                 },
-                "FieldName": "deletePurchases",
+                "FieldName": "deleteCryptoPurchase",
                 "TypeName": "Mutation",
                 "SyncConfig": {
                     "ConflictDetection": "VERSION",
@@ -858,7 +858,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "deletePurchases",
+                                        "deleteCryptoPurchase",
                                         "req",
                                         "vtl"
                                     ]
@@ -882,7 +882,7 @@
                                     ".",
                                     [
                                         "Mutation",
-                                        "deletePurchases",
+                                        "deleteCryptoPurchase",
                                         "res",
                                         "vtl"
                                     ]
@@ -895,11 +895,11 @@
         }
     },
     "Outputs": {
-        "GetAttPurchasesTableStreamArn": {
+        "GetAttCryptoPurchaseTableStreamArn": {
             "Description": "Your DynamoDB table StreamArn.",
             "Value": {
                 "Fn::GetAtt": [
-                    "PurchasesTable",
+                    "CryptoPurchaseTable",
                     "StreamArn"
                 ]
             },
@@ -912,18 +912,18 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "PurchasesTable",
+                            "CryptoPurchaseTable",
                             "StreamArn"
                         ]
                     ]
                 }
             }
         },
-        "GetAttPurchasesDataSourceName": {
+        "GetAttCryptoPurchaseDataSourceName": {
             "Description": "Your model DataSource name.",
             "Value": {
                 "Fn::GetAtt": [
-                    "PurchasesDataSource",
+                    "CryptoPurchaseDataSource",
                     "Name"
                 ]
             },
@@ -936,17 +936,17 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "PurchasesDataSource",
+                            "CryptoPurchaseDataSource",
                             "Name"
                         ]
                     ]
                 }
             }
         },
-        "GetAttPurchasesTableName": {
+        "GetAttCryptoPurchaseTableName": {
             "Description": "Your DynamoDB table name.",
             "Value": {
-                "Ref": "PurchasesTable"
+                "Ref": "CryptoPurchaseTable"
             },
             "Export": {
                 "Name": {
@@ -957,7 +957,7 @@
                                 "Ref": "AppSyncApiId"
                             },
                             "GetAtt",
-                            "PurchasesTable",
+                            "CryptoPurchaseTable",
                             "Name"
                         ]
                     ]

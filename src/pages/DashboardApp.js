@@ -6,7 +6,6 @@ import {
   AppTasks,
   AppNewUsers,
   AppBugReports,
-  AppItemOrders,
   AppNewsUpdate,
   AppWeeklySales,
   AppOrderTimeline,

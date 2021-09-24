@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Purchases": {
-            "name": "Purchases",
+        "CryptoPurchase": {
+            "name": "CryptoPurchase",
             "fields": {
                 "id": {
                     "name": "id",
@@ -20,14 +20,14 @@ export const schema = {
                 "amount": {
                     "name": "amount",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
                 "date": {
                     "name": "date",
                     "isArray": false,
-                    "type": "String",
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -49,7 +49,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Purchases",
+            "pluralName": "CryptoPurchases",
             "attributes": [
                 {
                     "type": "model",
@@ -215,5 +215,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "309929c1826803d365ef14982d7b175f"
+    "version": "f4cf69870c61581eae14704d5737c1da"
 };

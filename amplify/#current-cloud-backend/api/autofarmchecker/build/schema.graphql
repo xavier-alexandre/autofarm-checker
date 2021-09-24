@@ -1,8 +1,8 @@
-type Purchases @aws_iam @aws_api_key {
+type CryptoPurchase @aws_iam @aws_api_key {
   id: ID!
   platform: String
-  amount: String
-  date: String
+  amount: Float
+  date: AWSDateTime
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -38,8 +38,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelPurchasesConnection @aws_api_key @aws_iam {
-  items: [Purchases]
+type ModelCryptoPurchaseConnection @aws_api_key @aws_iam {
+  items: [CryptoPurchase]
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -117,14 +117,14 @@ input ModelSizeInput {
   between: [Int]
 }
 
-input ModelPurchasesFilterInput {
+input ModelCryptoPurchaseFilterInput {
   id: ModelIDInput
   platform: ModelStringInput
-  amount: ModelStringInput
+  amount: ModelFloatInput
   date: ModelStringInput
-  and: [ModelPurchasesFilterInput]
-  or: [ModelPurchasesFilterInput]
-  not: ModelPurchasesFilterInput
+  and: [ModelCryptoPurchaseFilterInput]
+  or: [ModelCryptoPurchaseFilterInput]
+  not: ModelCryptoPurchaseFilterInput
 }
 
 enum ModelAttributeTypes {
@@ -141,9 +141,9 @@ enum ModelAttributeTypes {
 }
 
 type Query {
-  getPurchases(id: ID!): Purchases @aws_api_key @aws_iam
-  listPurchases(filter: ModelPurchasesFilterInput, limit: Int, nextToken: String): ModelPurchasesConnection @aws_api_key @aws_iam
-  syncPurchases(filter: ModelPurchasesFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPurchasesConnection @aws_api_key @aws_iam
+  getCryptoPurchase(id: ID!): CryptoPurchase @aws_api_key @aws_iam
+  listCryptoPurchases(filter: ModelCryptoPurchaseFilterInput, limit: Int, nextToken: String): ModelCryptoPurchaseConnection @aws_api_key @aws_iam
+  syncCryptoPurchases(filter: ModelCryptoPurchaseFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCryptoPurchaseConnection @aws_api_key @aws_iam
   getAutofarmBalance(id: ID!): AutofarmBalance @aws_api_key @aws_iam
   listAutofarmBalances(filter: ModelAutofarmBalanceFilterInput, limit: Int, nextToken: String): ModelAutofarmBalanceConnection @aws_api_key @aws_iam
   syncAutofarmBalances(filter: ModelAutofarmBalanceFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAutofarmBalanceConnection @aws_api_key @aws_iam
@@ -152,31 +152,31 @@ type Query {
   syncIronfinanceBalances(filter: ModelIronfinanceBalanceFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelIronfinanceBalanceConnection @aws_api_key @aws_iam
 }
 
-input CreatePurchasesInput {
+input CreateCryptoPurchaseInput {
   id: ID
   platform: String
-  amount: String
-  date: String
+  amount: Float
+  date: AWSDateTime
   _version: Int
 }
 
-input UpdatePurchasesInput {
+input UpdateCryptoPurchaseInput {
   id: ID!
   platform: String
-  amount: String
-  date: String
+  amount: Float
+  date: AWSDateTime
   _version: Int
 }
 
-input DeletePurchasesInput {
+input DeleteCryptoPurchaseInput {
   id: ID!
   _version: Int
 }
 
 type Mutation {
-  createPurchases(input: CreatePurchasesInput!, condition: ModelPurchasesConditionInput): Purchases @aws_api_key @aws_iam
-  updatePurchases(input: UpdatePurchasesInput!, condition: ModelPurchasesConditionInput): Purchases @aws_api_key @aws_iam
-  deletePurchases(input: DeletePurchasesInput!, condition: ModelPurchasesConditionInput): Purchases @aws_api_key @aws_iam
+  createCryptoPurchase(input: CreateCryptoPurchaseInput!, condition: ModelCryptoPurchaseConditionInput): CryptoPurchase @aws_api_key @aws_iam
+  updateCryptoPurchase(input: UpdateCryptoPurchaseInput!, condition: ModelCryptoPurchaseConditionInput): CryptoPurchase @aws_api_key @aws_iam
+  deleteCryptoPurchase(input: DeleteCryptoPurchaseInput!, condition: ModelCryptoPurchaseConditionInput): CryptoPurchase @aws_api_key @aws_iam
   createAutofarmBalance(input: CreateAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
   updateAutofarmBalance(input: UpdateAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
   deleteAutofarmBalance(input: DeleteAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
@@ -185,19 +185,19 @@ type Mutation {
   deleteIronfinanceBalance(input: DeleteIronfinanceBalanceInput!, condition: ModelIronfinanceBalanceConditionInput): IronfinanceBalance @aws_api_key @aws_iam
 }
 
-input ModelPurchasesConditionInput {
+input ModelCryptoPurchaseConditionInput {
   platform: ModelStringInput
-  amount: ModelStringInput
+  amount: ModelFloatInput
   date: ModelStringInput
-  and: [ModelPurchasesConditionInput]
-  or: [ModelPurchasesConditionInput]
-  not: ModelPurchasesConditionInput
+  and: [ModelCryptoPurchaseConditionInput]
+  or: [ModelCryptoPurchaseConditionInput]
+  not: ModelCryptoPurchaseConditionInput
 }
 
 type Subscription {
-  onCreatePurchases: Purchases @aws_subscribe(mutations: ["createPurchases"]) @aws_api_key @aws_iam
-  onUpdatePurchases: Purchases @aws_subscribe(mutations: ["updatePurchases"]) @aws_api_key @aws_iam
-  onDeletePurchases: Purchases @aws_subscribe(mutations: ["deletePurchases"]) @aws_api_key @aws_iam
+  onCreateCryptoPurchase: CryptoPurchase @aws_subscribe(mutations: ["createCryptoPurchase"]) @aws_api_key @aws_iam
+  onUpdateCryptoPurchase: CryptoPurchase @aws_subscribe(mutations: ["updateCryptoPurchase"]) @aws_api_key @aws_iam
+  onDeleteCryptoPurchase: CryptoPurchase @aws_subscribe(mutations: ["deleteCryptoPurchase"]) @aws_api_key @aws_iam
   onCreateAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["createAutofarmBalance"]) @aws_api_key @aws_iam
   onUpdateAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["updateAutofarmBalance"]) @aws_api_key @aws_iam
   onDeleteAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["deleteAutofarmBalance"]) @aws_api_key @aws_iam
