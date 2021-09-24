@@ -1,7 +1,7 @@
-type Payments @aws_iam @aws_api_key {
+type Paymen @aws_iam @aws_api_key {
   id: ID!
-  amount: Float!
-  platform: String!
+  platform: String
+  amount: Float
   date: AWSDateTime
   _version: Int!
   _deleted: Boolean
@@ -38,8 +38,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelPaymentsConnection @aws_api_key @aws_iam {
-  items: [Payments]
+type ModelPaymenConnection @aws_api_key @aws_iam {
+  items: [Paymen]
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -117,14 +117,14 @@ input ModelSizeInput {
   between: [Int]
 }
 
-input ModelPaymentsFilterInput {
+input ModelPaymenFilterInput {
   id: ModelIDInput
-  amount: ModelFloatInput
   platform: ModelStringInput
+  amount: ModelFloatInput
   date: ModelStringInput
-  and: [ModelPaymentsFilterInput]
-  or: [ModelPaymentsFilterInput]
-  not: ModelPaymentsFilterInput
+  and: [ModelPaymenFilterInput]
+  or: [ModelPaymenFilterInput]
+  not: ModelPaymenFilterInput
 }
 
 enum ModelAttributeTypes {
@@ -141,9 +141,9 @@ enum ModelAttributeTypes {
 }
 
 type Query {
-  getPayments(id: ID!): Payments @aws_api_key @aws_iam
-  listPayments(filter: ModelPaymentsFilterInput, limit: Int, nextToken: String): ModelPaymentsConnection @aws_api_key @aws_iam
-  syncPayments(filter: ModelPaymentsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPaymentsConnection @aws_api_key @aws_iam
+  getPaymen(id: ID!): Paymen @aws_api_key @aws_iam
+  listPaymen(filter: ModelPaymenFilterInput, limit: Int, nextToken: String): ModelPaymenConnection @aws_api_key @aws_iam
+  syncPaymen(filter: ModelPaymenFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPaymenConnection @aws_api_key @aws_iam
   getAutofarmBalance(id: ID!): AutofarmBalance @aws_api_key @aws_iam
   listAutofarmBalances(filter: ModelAutofarmBalanceFilterInput, limit: Int, nextToken: String): ModelAutofarmBalanceConnection @aws_api_key @aws_iam
   syncAutofarmBalances(filter: ModelAutofarmBalanceFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAutofarmBalanceConnection @aws_api_key @aws_iam
@@ -152,31 +152,31 @@ type Query {
   syncIronfinanceBalances(filter: ModelIronfinanceBalanceFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelIronfinanceBalanceConnection @aws_api_key @aws_iam
 }
 
-input CreatePaymentsInput {
+input CreatePaymenInput {
   id: ID
-  amount: Float!
-  platform: String!
-  date: AWSDateTime
-  _version: Int
-}
-
-input UpdatePaymentsInput {
-  id: ID!
-  amount: Float
   platform: String
+  amount: Float
   date: AWSDateTime
   _version: Int
 }
 
-input DeletePaymentsInput {
+input UpdatePaymenInput {
+  id: ID!
+  platform: String
+  amount: Float
+  date: AWSDateTime
+  _version: Int
+}
+
+input DeletePaymenInput {
   id: ID!
   _version: Int
 }
 
 type Mutation {
-  createPayments(input: CreatePaymentsInput!, condition: ModelPaymentsConditionInput): Payments @aws_api_key @aws_iam
-  updatePayments(input: UpdatePaymentsInput!, condition: ModelPaymentsConditionInput): Payments @aws_api_key @aws_iam
-  deletePayments(input: DeletePaymentsInput!, condition: ModelPaymentsConditionInput): Payments @aws_api_key @aws_iam
+  createPaymen(input: CreatePaymenInput!, condition: ModelPaymenConditionInput): Paymen @aws_api_key @aws_iam
+  updatePaymen(input: UpdatePaymenInput!, condition: ModelPaymenConditionInput): Paymen @aws_api_key @aws_iam
+  deletePaymen(input: DeletePaymenInput!, condition: ModelPaymenConditionInput): Paymen @aws_api_key @aws_iam
   createAutofarmBalance(input: CreateAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
   updateAutofarmBalance(input: UpdateAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
   deleteAutofarmBalance(input: DeleteAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
@@ -185,19 +185,19 @@ type Mutation {
   deleteIronfinanceBalance(input: DeleteIronfinanceBalanceInput!, condition: ModelIronfinanceBalanceConditionInput): IronfinanceBalance @aws_api_key @aws_iam
 }
 
-input ModelPaymentsConditionInput {
-  amount: ModelFloatInput
+input ModelPaymenConditionInput {
   platform: ModelStringInput
+  amount: ModelFloatInput
   date: ModelStringInput
-  and: [ModelPaymentsConditionInput]
-  or: [ModelPaymentsConditionInput]
-  not: ModelPaymentsConditionInput
+  and: [ModelPaymenConditionInput]
+  or: [ModelPaymenConditionInput]
+  not: ModelPaymenConditionInput
 }
 
 type Subscription {
-  onCreatePayments: Payments @aws_subscribe(mutations: ["createPayments"]) @aws_api_key @aws_iam
-  onUpdatePayments: Payments @aws_subscribe(mutations: ["updatePayments"]) @aws_api_key @aws_iam
-  onDeletePayments: Payments @aws_subscribe(mutations: ["deletePayments"]) @aws_api_key @aws_iam
+  onCreatePaymen: Paymen @aws_subscribe(mutations: ["createPaymen"]) @aws_api_key @aws_iam
+  onUpdatePaymen: Paymen @aws_subscribe(mutations: ["updatePaymen"]) @aws_api_key @aws_iam
+  onDeletePaymen: Paymen @aws_subscribe(mutations: ["deletePaymen"]) @aws_api_key @aws_iam
   onCreateAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["createAutofarmBalance"]) @aws_api_key @aws_iam
   onUpdateAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["updateAutofarmBalance"]) @aws_api_key @aws_iam
   onDeleteAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["deleteAutofarmBalance"]) @aws_api_key @aws_iam

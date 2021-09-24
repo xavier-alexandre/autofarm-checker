@@ -1,7 +1,7 @@
-type Payments @model @auth(rules: [{allow: public}]) {
+type Paymen @model @auth(rules: [{allow: public}]) {
   id: ID!
-  amount: Float!
-  platform: String!
+  platform: String
+  amount: Float
   date: AWSDateTime
 }
 

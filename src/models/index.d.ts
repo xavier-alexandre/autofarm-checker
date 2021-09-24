@@ -4,7 +4,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-type PaymentsMetaData = {
+type PaymenMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -16,15 +16,15 @@ type IronfinanceBalanceMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Payments {
+export declare class Paymen {
   readonly id: string;
-  readonly amount: number;
-  readonly platform: string;
-  readonly date: string;
+  readonly platform?: string;
+  readonly amount?: number;
+  readonly date?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Payments, PaymentsMetaData>);
-  static copyOf(source: Payments, mutator: (draft: MutableModel<Payments, PaymentsMetaData>) => MutableModel<Payments, PaymentsMetaData> | void): Payments;
+  constructor(init: ModelInit<Paymen, PaymenMetaData>);
+  static copyOf(source: Paymen, mutator: (draft: MutableModel<Paymen, PaymenMetaData>) => MutableModel<Paymen, PaymenMetaData> | void): Paymen;
 }
 
 export declare class AutofarmBalance {

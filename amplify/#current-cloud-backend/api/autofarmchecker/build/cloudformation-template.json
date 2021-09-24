@@ -192,7 +192,7 @@
                         {
                             "Ref": "APIKeyExpirationEpoch"
                         },
-                        1635105522
+                        1635106293
                     ]
                 }
             },
@@ -235,7 +235,7 @@
                 }
             }
         },
-        "Payments": {
+        "Paymen": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "Parameters": {
@@ -300,7 +300,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "stacks",
-                            "Payments.json"
+                            "Paymen.json"
                         ]
                     ]
                 }
@@ -503,7 +503,7 @@
             "DependsOn": [
                 "GraphQLAPI",
                 "GraphQLSchema",
-                "Payments",
+                "Paymen",
                 "AutofarmBalance",
                 "IronfinanceBalance"
             ]
