@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import creditCard from '@iconify/icons-noto/credit-card';
-// material
+import { DataStore } from '@aws-amplify/datastore';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
-// utils
+import { Purchase } from '../../../models';
 import { fShortenNumber } from '../../../utils/formatNumber';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -35,18 +33,35 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 1723315;
-
 const AppCryptoPurchases = () => {
-  const [puraches, setPurchases] = useState([]);
-  useEffect(() => {});
+  const [purchases, setPurchases] = useState([]);
+  useEffect(() => {
+    let isSubscribed = true;
+    const fetchPurchases = async () => {
+      const data = await DataStore.query(Purchase);
+      data.sort((a, b) => a.createdAt < b.createdAt);
+      // set state with the result if `isSubscribed` is true
+      if (isSubscribed) {
+        setPurchases(data);
+      }
+    };
+
+    fetchPurchases()
+      // make sure to catch any error
+      .catch(console.error);
+
+    // cancel any future calls
+    return () => (isSubscribed = false);
+  }, []);
 
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={creditCard} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h3">
+        {fShortenNumber(purchases.reduce((prev, curr) => prev + curr, 0))}
+      </Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Crypto purchases
       </Typography>
