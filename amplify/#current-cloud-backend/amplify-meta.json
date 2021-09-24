@@ -1,0 +1,104 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-autofarmchecker-dev-220721-authRole",
+      "UnauthRoleArn": "arn:aws:iam::268761720657:role/amplify-autofarmchecker-dev-220721-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::268761720657:role/amplify-autofarmchecker-dev-220721-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
+      "UnauthRoleName": "amplify-autofarmchecker-dev-220721-unauthRole",
+      "StackName": "amplify-autofarmchecker-dev-220721",
+      "StackId": "arn:aws:cloudformation:eu-west-1:268761720657:stack/amplify-autofarmchecker-dev-220721/35c0a980-14ce-11ec-8299-0a5b287fdded",
+      "AmplifyAppId": "d13adunveju0g1"
+    }
+  },
+  "function": {
+    "autofarmcheckerlayer1921bdc4": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true,
+      "output": {
+        "Arn": "arn:aws:lambda:eu-west-1:268761720657:layer:autofarmcheckerlayer1921bdc4-dev:12"
+      },
+      "lastPushTimeStamp": "2021-09-24T20:01:44.446Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-autofarmchecker-dev-220721-deployment/amplify-cfn-templates/function/autofarmcheckerlayer1921bdc4-awscloudformation-template.json",
+        "logicalId": "functionautofarmcheckerlayer1921bdc4"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
+        "s3Key": "amplify-builds/autofarmcheckerlayer1921bdc4-LambdaLayerVersionc6bac7a2-build.zip"
+      }
+    },
+    "saveBalances": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "autofarmchecker",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "autofarmcheckerlayer1921bdc4",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ],
+      "output": {
+        "Region": "eu-west-1",
+        "CloudWatchEventRule": "amplify-autofarmchecker-dev-220721-CloudWatchEvent-1RCEB7S5B4IIT",
+        "Arn": "arn:aws:lambda:eu-west-1:268761720657:function:saveBalances-dev",
+        "Name": "saveBalances-dev",
+        "LambdaExecutionRole": "autofarmcheckerLambdaRole757b8638-dev"
+      },
+      "lastPushTimeStamp": "2021-09-24T20:01:44.451Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-autofarmchecker-dev-220721-deployment/amplify-cfn-templates/function/saveBalances-cloudformation-template.json",
+        "logicalId": "functionsaveBalances"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-autofarmchecker-dev-220721-deployment",
+        "s3Key": "amplify-builds/saveBalances-44586c616a2b514d5031-build.zip"
+      }
+    }
+  },
+  "api": {
+    "autofarmchecker": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "tpfb6vtavrhlpjkqpqosvnhl5i",
+        "GraphQLAPIEndpointOutput": "https://ur54nghbqjcqlnky7wufcv5ope.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-bz45sp5dunh5nm6m2dkhuyax5q"
+      },
+      "lastPushTimeStamp": "2021-09-24T20:01:44.459Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-autofarmchecker-dev-220721-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiautofarmchecker"
+      },
+      "lastPushDirHash": "cBlQ44XTFosaYME6lw4iSV2G4fI="
+    }
+  }
+}

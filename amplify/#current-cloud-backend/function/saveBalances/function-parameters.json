@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "api": {
+      "autofarmchecker": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    },
+    "storage": {
+      "AutofarmBalance:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "IronfinanceBalance:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": [
+    {
+      "type": "ProjectLayer",
+      "resourceName": "autofarmcheckerlayer1921bdc4",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    }
+  ]
+}

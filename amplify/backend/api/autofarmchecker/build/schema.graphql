@@ -1,0 +1,295 @@
+type Payments @aws_iam @aws_api_key {
+  id: ID!
+  amount: Float!
+  platform: String!
+  date: AWSDateTime
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type AutofarmBalance @aws_iam @aws_api_key {
+  id: ID!
+  balance: Float!
+  chain: String!
+  token1: String!
+  token2: String!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type IronfinanceBalance @aws_iam @aws_api_key {
+  id: ID!
+  balance: Float!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelPaymentsConnection @aws_api_key @aws_iam {
+  items: [Payments]
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelPaymentsFilterInput {
+  id: ModelIDInput
+  amount: ModelFloatInput
+  platform: ModelStringInput
+  date: ModelStringInput
+  and: [ModelPaymentsFilterInput]
+  or: [ModelPaymentsFilterInput]
+  not: ModelPaymentsFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getPayments(id: ID!): Payments @aws_api_key @aws_iam
+  listPayments(filter: ModelPaymentsFilterInput, limit: Int, nextToken: String): ModelPaymentsConnection @aws_api_key @aws_iam
+  syncPayments(filter: ModelPaymentsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPaymentsConnection @aws_api_key @aws_iam
+  getAutofarmBalance(id: ID!): AutofarmBalance @aws_api_key @aws_iam
+  listAutofarmBalances(filter: ModelAutofarmBalanceFilterInput, limit: Int, nextToken: String): ModelAutofarmBalanceConnection @aws_api_key @aws_iam
+  syncAutofarmBalances(filter: ModelAutofarmBalanceFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAutofarmBalanceConnection @aws_api_key @aws_iam
+  getIronfinanceBalance(id: ID!): IronfinanceBalance @aws_api_key @aws_iam
+  listIronfinanceBalances(filter: ModelIronfinanceBalanceFilterInput, limit: Int, nextToken: String): ModelIronfinanceBalanceConnection @aws_api_key @aws_iam
+  syncIronfinanceBalances(filter: ModelIronfinanceBalanceFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelIronfinanceBalanceConnection @aws_api_key @aws_iam
+}
+
+input CreatePaymentsInput {
+  id: ID
+  amount: Float!
+  platform: String!
+  date: AWSDateTime
+  _version: Int
+}
+
+input UpdatePaymentsInput {
+  id: ID!
+  amount: Float
+  platform: String
+  date: AWSDateTime
+  _version: Int
+}
+
+input DeletePaymentsInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createPayments(input: CreatePaymentsInput!, condition: ModelPaymentsConditionInput): Payments @aws_api_key @aws_iam
+  updatePayments(input: UpdatePaymentsInput!, condition: ModelPaymentsConditionInput): Payments @aws_api_key @aws_iam
+  deletePayments(input: DeletePaymentsInput!, condition: ModelPaymentsConditionInput): Payments @aws_api_key @aws_iam
+  createAutofarmBalance(input: CreateAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
+  updateAutofarmBalance(input: UpdateAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
+  deleteAutofarmBalance(input: DeleteAutofarmBalanceInput!, condition: ModelAutofarmBalanceConditionInput): AutofarmBalance @aws_api_key @aws_iam
+  createIronfinanceBalance(input: CreateIronfinanceBalanceInput!, condition: ModelIronfinanceBalanceConditionInput): IronfinanceBalance @aws_api_key @aws_iam
+  updateIronfinanceBalance(input: UpdateIronfinanceBalanceInput!, condition: ModelIronfinanceBalanceConditionInput): IronfinanceBalance @aws_api_key @aws_iam
+  deleteIronfinanceBalance(input: DeleteIronfinanceBalanceInput!, condition: ModelIronfinanceBalanceConditionInput): IronfinanceBalance @aws_api_key @aws_iam
+}
+
+input ModelPaymentsConditionInput {
+  amount: ModelFloatInput
+  platform: ModelStringInput
+  date: ModelStringInput
+  and: [ModelPaymentsConditionInput]
+  or: [ModelPaymentsConditionInput]
+  not: ModelPaymentsConditionInput
+}
+
+type Subscription {
+  onCreatePayments: Payments @aws_subscribe(mutations: ["createPayments"]) @aws_api_key @aws_iam
+  onUpdatePayments: Payments @aws_subscribe(mutations: ["updatePayments"]) @aws_api_key @aws_iam
+  onDeletePayments: Payments @aws_subscribe(mutations: ["deletePayments"]) @aws_api_key @aws_iam
+  onCreateAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["createAutofarmBalance"]) @aws_api_key @aws_iam
+  onUpdateAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["updateAutofarmBalance"]) @aws_api_key @aws_iam
+  onDeleteAutofarmBalance: AutofarmBalance @aws_subscribe(mutations: ["deleteAutofarmBalance"]) @aws_api_key @aws_iam
+  onCreateIronfinanceBalance: IronfinanceBalance @aws_subscribe(mutations: ["createIronfinanceBalance"]) @aws_api_key @aws_iam
+  onUpdateIronfinanceBalance: IronfinanceBalance @aws_subscribe(mutations: ["updateIronfinanceBalance"]) @aws_api_key @aws_iam
+  onDeleteIronfinanceBalance: IronfinanceBalance @aws_subscribe(mutations: ["deleteIronfinanceBalance"]) @aws_api_key @aws_iam
+}
+
+type ModelAutofarmBalanceConnection @aws_api_key @aws_iam {
+  items: [AutofarmBalance]
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelAutofarmBalanceFilterInput {
+  id: ModelIDInput
+  balance: ModelFloatInput
+  chain: ModelStringInput
+  token1: ModelStringInput
+  token2: ModelStringInput
+  and: [ModelAutofarmBalanceFilterInput]
+  or: [ModelAutofarmBalanceFilterInput]
+  not: ModelAutofarmBalanceFilterInput
+}
+
+input CreateAutofarmBalanceInput {
+  id: ID
+  balance: Float!
+  chain: String!
+  token1: String!
+  token2: String!
+  _version: Int
+}
+
+input UpdateAutofarmBalanceInput {
+  id: ID!
+  balance: Float
+  chain: String
+  token1: String
+  token2: String
+  _version: Int
+}
+
+input DeleteAutofarmBalanceInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelAutofarmBalanceConditionInput {
+  balance: ModelFloatInput
+  chain: ModelStringInput
+  token1: ModelStringInput
+  token2: ModelStringInput
+  and: [ModelAutofarmBalanceConditionInput]
+  or: [ModelAutofarmBalanceConditionInput]
+  not: ModelAutofarmBalanceConditionInput
+}
+
+type ModelIronfinanceBalanceConnection @aws_api_key @aws_iam {
+  items: [IronfinanceBalance]
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelIronfinanceBalanceFilterInput {
+  id: ModelIDInput
+  balance: ModelFloatInput
+  and: [ModelIronfinanceBalanceFilterInput]
+  or: [ModelIronfinanceBalanceFilterInput]
+  not: ModelIronfinanceBalanceFilterInput
+}
+
+input CreateIronfinanceBalanceInput {
+  id: ID
+  balance: Float!
+  _version: Int
+}
+
+input UpdateIronfinanceBalanceInput {
+  id: ID!
+  balance: Float
+  _version: Int
+}
+
+input DeleteIronfinanceBalanceInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelIronfinanceBalanceConditionInput {
+  balance: ModelFloatInput
+  and: [ModelIronfinanceBalanceConditionInput]
+  or: [ModelIronfinanceBalanceConditionInput]
+  not: ModelIronfinanceBalanceConditionInput
+}

@@ -1,0 +1,20 @@
+type Payments @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  amount: Float!
+  platform: String!
+  date: AWSDateTime
+}
+
+type AutofarmBalance @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  balance: Float!
+  chain: String!
+  token1: String!
+  token2: String!
+}
+
+type IronfinanceBalance @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  balance: Float!
+}
+ 

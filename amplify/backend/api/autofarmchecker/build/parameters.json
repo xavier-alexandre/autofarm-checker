@@ -1,0 +1,8 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "autofarmchecker",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-autofarmchecker-dev-220721-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/58490f9243c431e3333c995e70cb19d93a50d006"
+}

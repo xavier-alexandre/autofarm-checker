@@ -1,20 +1,33 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+// scroll bar
+import 'simplebar/src/simplebar.css';
 
-import Amplify from "aws-amplify";
-import awsconfig from "./aws-exports";
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+
+//
+import Amplify from 'aws-amplify';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import reportWebVitals from './reportWebVitals';
+
+import awsconfig from './aws-exports';
 
 Amplify.configure(awsconfig);
 
+// ----------------------------------------------------------------------
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+  <HelmetProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </HelmetProvider>,
+  document.getElementById('root')
 );
+
+// If you want to enable client cache, register instead.
+serviceWorker.unregister();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

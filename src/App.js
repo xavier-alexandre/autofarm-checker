@@ -1,14 +1,21 @@
-import "./App.css";
-import DataFetcher from "./DataFetcher";
+// routes
+import Router from './routes';
+// theme
+import ThemeConfig from './theme';
+import GlobalStyles from './theme/globalStyles';
+// components
+import ScrollToTop from './components/ScrollToTop';
+import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
 
-function App() {
+// ----------------------------------------------------------------------
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <DataFetcher />
-      </header>
-    </div>
+    <ThemeConfig>
+      <ScrollToTop />
+      <GlobalStyles />
+      <BaseOptionChartStyle />
+      <Router />
+    </ThemeConfig>
   );
 }
-
-export default App;
