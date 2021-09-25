@@ -35,31 +35,20 @@ const SkeletonStyle = styled(Skeleton)(() => ({
   margin: 'auto'
 }));
 
-// ----------------------------------------------------------------------
-
 const AppCryptoPurchases = () => {
   const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let isSubscribed = true;
     setIsLoading(true);
     const fetchPurchases = async () => {
       const data = await DataStore.query(CryptoPurchase);
       data.sort((a, b) => a.createdAt < b.createdAt);
-      // set state with the result if `isSubscribed` is true
-      if (isSubscribed) {
-        setPurchases(data);
-        setIsLoading(false);
-      }
+      setPurchases(data);
+      setIsLoading(false);
     };
 
-    fetchPurchases()
-      // make sure to catch any error
-      .catch(console.error);
-
-    // cancel any future calls
-    return () => (isSubscribed = false);
+    fetchPurchases().catch(console.error);
   }, []);
 
   const total = purchases.reduce((prev, curr) => prev + curr.amount, 0);

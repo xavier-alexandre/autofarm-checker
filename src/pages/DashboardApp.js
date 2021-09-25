@@ -7,7 +7,6 @@ import {
   AppNewUsers,
   AppBugReports,
   AppNewsUpdate,
-  AppWeeklySales,
   AppOrderTimeline,
   AppCurrentVisits,
   AppBalances,
@@ -15,7 +14,8 @@ import {
   AppTrafficBySite,
   AppCurrentSubject,
   AppConversionRates,
-  AppCryptoPurchases
+  AppCryptoPurchases,
+  AppTotalWorth
 } from '../components/_dashboard/app';
 
 // ----------------------------------------------------------------------
@@ -29,13 +29,13 @@ export default function DashboardApp() {
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWeeklySales />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppNewUsers />
+            <AppTotalWorth />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppCryptoPurchases />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <AppNewUsers />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppBugReports />
