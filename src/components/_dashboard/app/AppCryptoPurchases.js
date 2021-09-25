@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Icon } from '@iconify/react';
 import creditCard from '@iconify/icons-noto/credit-card';
 import { DataStore } from '@aws-amplify/datastore';
@@ -6,6 +6,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { Card, Skeleton, Typography } from '@mui/material';
 import { CryptoPurchase } from '../../../models';
 import Counter from '../../animate/Counter';
+import { CurrencyConversionContext } from '../../../utils/CurrencyConversionFetcher';
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -38,6 +39,7 @@ const SkeletonStyle = styled(Skeleton)(() => ({
 const AppCryptoPurchases = () => {
   const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const currencyConversions = useContext(CurrencyConversionContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,7 +53,7 @@ const AppCryptoPurchases = () => {
     fetchPurchases().catch(console.error);
   }, []);
 
-  const total = purchases.reduce((prev, curr) => prev + curr.amount, 0);
+  const total = currencyConversions.USD * purchases.reduce((prev, curr) => prev + curr.amount, 0);
 
   return (
     <RootStyle>
@@ -62,7 +64,7 @@ const AppCryptoPurchases = () => {
         {isLoading ? (
           <SkeletonStyle width="10rem" />
         ) : (
-          <Counter from={0} to={total} duration={0.5} unit="€" />
+          <Counter from={0} to={total} duration={0.5} unit="$" />
         )}
       </Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
