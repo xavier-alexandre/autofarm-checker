@@ -7,6 +7,7 @@ import { Card, Skeleton, Typography } from '@mui/material';
 import { CryptoPurchase } from '../../../models';
 import Counter from '../../animate/Counter';
 import { CurrencyConversionContext } from '../../../utils/CurrencyConversionFetcher';
+import ToggleEuroUSD from '../../../utils/ToggleEuroUSD';
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -64,7 +65,10 @@ const AppCryptoPurchases = () => {
         {isLoading ? (
           <SkeletonStyle width="10rem" />
         ) : (
-          <Counter from={0} to={total} duration={0.5} unit="$" />
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '.5rem' }}>
+            <Counter from={0} to={total} duration={0.5} unit="" />
+            <ToggleEuroUSD />
+          </div>
         )}
       </Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
