@@ -1,5 +1,5 @@
 const Web3 = require('web3');
-const CHAINLINK_ABI = require('./abis/EACAggregatorProxy.json');
+const CHAINLINK_ABI = require('../abis/EACAggregatorProxy.json');
 
 /**
  * @param {String} chainlinkConverterContractAddress Address of the Chainlink contract oracle that provides convertion rate

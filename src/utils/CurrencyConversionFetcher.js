@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import convertToUSD from './convertToUSD';
 
 const CurrencyConversionContext = React.createContext({
   USD: 1.17
@@ -11,11 +12,20 @@ const CurrencyConversionFetcher = ({ children }) => {
   });
 
   useEffect(() => {
-    axios
-      .get('https://freecurrencyapi.net/api/v1/rates?apikey=c133b210-1e06-11ec-8c53-a95eebd76ae2')
-      .then((result) => setRates(Object.values(result.data.data)[0]))
-      .catch(console.warn);
-  });
+    convertToUSD(
+      'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+      '0x01d391a48f4f7339ac64ca2c83a07c22f95f587a',
+      'gwei',
+      10
+    )
+      .then((result) =>
+        setRates((r) => ({
+          ...r,
+          USD: result
+        }))
+      )
+      .catch(console.error);
+  }, []);
 
   return (
     <CurrencyConversionContext.Provider value={rates}>
