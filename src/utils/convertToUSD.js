@@ -15,4 +15,4 @@ const convertToUSD = async (rpcUrl, chainlinkConverterContractAddress, unit, fac
   return Number.parseFloat(web3.utils.fromWei(rate, unit)) * factor;
 };
 
-module.exports = convertToUSD;
+export default convertToUSD;
