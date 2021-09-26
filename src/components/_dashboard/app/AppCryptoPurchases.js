@@ -41,6 +41,7 @@ const AppCryptoPurchases = () => {
   const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const currencyConversions = useContext(CurrencyConversionContext);
+  const [currency, setCurrency] = useState('dollar');
 
   useEffect(() => {
     setIsLoading(true);
@@ -54,7 +55,9 @@ const AppCryptoPurchases = () => {
     fetchPurchases().catch(console.error);
   }, []);
 
-  const total = currencyConversions.USD * purchases.reduce((prev, curr) => prev + curr.amount, 0);
+  const total =
+    purchases.reduce((prev, curr) => prev + curr.amount, 0) *
+    (currency === 'dollar' ? currencyConversions.USD : 1);
 
   return (
     <RootStyle>
@@ -67,7 +70,7 @@ const AppCryptoPurchases = () => {
         ) : (
           <div style={{ display: 'flex', justifyContent: 'center', gap: '.5rem' }}>
             <Counter from={0} to={total} duration={0.5} unit="" />
-            <ToggleEuroUSD />
+            <ToggleEuroUSD onChange={setCurrency} />
           </div>
         )}
       </Typography>
