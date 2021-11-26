@@ -1,5 +1,7 @@
-const Web3 = require("web3");
-const convertToUSD = require("./convertToUSD");
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
+const Web3 = require('web3');
+const convertToUSD = require('./convertToUSD');
 
 /**
  * Returns the Autofarm's farm balance
@@ -9,22 +11,13 @@ const getFarmBalance = async (farmConfig) => {
   const web3 = new Web3(farmConfig.RPC_URL);
 
   const token1Abi = require(`./abis/${farmConfig.TOKEN_1.ABI_NAME}.json`);
-  const token1Contract = new web3.eth.Contract(
-    token1Abi,
-    farmConfig.TOKEN_1.CONTRACT_ADDRESS
-  );
+  const token1Contract = new web3.eth.Contract(token1Abi, farmConfig.TOKEN_1.CONTRACT_ADDRESS);
 
   const token2Abi = require(`./abis/${farmConfig.TOKEN_2.ABI_NAME}.json`);
-  const token2Contract = new web3.eth.Contract(
-    token2Abi,
-    farmConfig.TOKEN_2.CONTRACT_ADDRESS
-  );
+  const token2Contract = new web3.eth.Contract(token2Abi, farmConfig.TOKEN_2.CONTRACT_ADDRESS);
 
   const poolAbi = require(`./abis/${farmConfig.POOL.ABI_NAME}.json`);
-  const poolContract = new web3.eth.Contract(
-    poolAbi,
-    farmConfig.POOL.CONTRACT_ADDRESS
-  );
+  const poolContract = new web3.eth.Contract(poolAbi, farmConfig.POOL.CONTRACT_ADDRESS);
 
   const AUTOFARM_ABI = require(`./abis/${farmConfig.AUTOFARM.ABI_NAME}.json`);
   const autoFarmContract = new web3.eth.Contract(
@@ -61,9 +54,9 @@ const getFarmBalance = async (farmConfig) => {
 
     let token2ToUSD;
     switch (farmConfig.TOKEN_2.NAME) {
-      case "USDC":
-      case "USDT":
-      case "DAI":
+      case 'USDC':
+      case 'USDT':
+      case 'DAI':
         token2ToUSD = 1;
         break;
       default:
@@ -76,16 +69,14 @@ const getFarmBalance = async (farmConfig) => {
         break;
     }
 
-    return (
-      token1BalanceParsed * token1ToUSD + token2BalanceParsed * token2ToUSD
-    );
+    return token1BalanceParsed * token1ToUSD + token2BalanceParsed * token2ToUSD;
   };
 
   const getLpTokenBalance = async () => {
     const value = await autoFarmContract.methods
       .stakedWantTokens(farmConfig.POOL.ID, farmConfig.WALLET_ADDRESS)
       .call();
-    return Number.parseFloat(web3.utils.fromWei(value, "ether"));
+    return Number.parseFloat(web3.utils.fromWei(value, 'ether'));
   };
 
   const balance = await getLpTokenBalance();
